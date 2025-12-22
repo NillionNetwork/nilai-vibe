@@ -11,7 +11,7 @@ from textual.widgets import Static
 from vibe.setup.onboarding.base import OnboardingScreen
 
 WELCOME_PREFIX = "Welcome to "
-WELCOME_HIGHLIGHT = "Mistral Vibe"
+WELCOME_HIGHLIGHT = "nilAI Vibe"
 WELCOME_SUFFIX = " - Let's get you started!"
 WELCOME_TEXT = WELCOME_PREFIX + WELCOME_HIGHLIGHT + WELCOME_SUFFIX
 
@@ -21,16 +21,16 @@ HIGHLIGHT_END = HIGHLIGHT_START + len(WELCOME_HIGHLIGHT)
 BUTTON_TEXT = "Press Enter ↵"
 
 GRADIENT_COLORS = [
-    "#ff6b00",
-    "#ff7b00",
-    "#ff8c00",
-    "#ff9d00",
-    "#ffae00",
-    "#ffbf00",
-    "#ffae00",
-    "#ff9d00",
-    "#ff8c00",
-    "#ff7b00",
+    "#0d0ee0",
+    "#1113ea",
+    "#1415fa",
+    "#2b2cff",
+    "#4243ff",
+    "#5a5bff",
+    "#4243ff",
+    "#2b2cff",
+    "#1415fa",
+    "#1113ea",
 ]
 
 

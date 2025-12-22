@@ -60,7 +60,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - add `terminal-auth` auth method to ACP agent only if the client supports it
-- fix `user-agent` header when using Mistral backend, using SDK hook
 
 ## [1.1.1] - 2025-12-10
 
@@ -101,10 +100,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix streaming with OpenAI adapter
 
 ## [1.0.4] - 2025-12-09
-
-### Changed
-
-- Rename agent in distribution/zed/extension.toml to mistral-vibe
 
 ### Fixed
 

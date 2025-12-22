@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from pathlib import Path
 import sys
+from pathlib import Path
 from typing import Any
 
 import pytest
@@ -24,7 +24,7 @@ def get_base_config() -> dict[str, Any]:
         ],
         "models": [
             {
-                "name": "mistral-vibe-cli-latest",
+                "name": "nilai-vibe-cli-latest",
                 "provider": "mistral",
                 "alias": "devstral-latest",
             }

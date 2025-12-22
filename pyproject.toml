@@ -1,16 +1,16 @@
 [project]
-name = "mistral-vibe"
+name = "nilai-vibe"
 version = "1.2.1"
-description = "Minimal CLI coding agent by Mistral"
+description = "Minimal CLI coding agent by nilAI"
 readme = "README.md"
 requires-python = ">=3.12"
 license = { text = "Apache-2.0" }
-authors = [{ name = "Mistral AI" }]
+authors = [{ name = "nilAI" }]
 keywords = [
     "ai",
     "cli",
     "coding-assistant",
-    "mistral",
+    "nilai",
     "llm",
     "developer-tools",
 ]
@@ -46,10 +46,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/mistralai/mistral-vibe"
-Repository = "https://github.com/mistralai/mistral-vibe"
-Issues = "https://github.com/mistralai/mistral-vibe/issues"
-Documentation = "https://github.com/mistralai/mistral-vibe#readme"
+Homepage = "https://github.com/NillionNetwork/nilai-vibe"
+Repository = "https://github.com/NillionNetwork/nilai-vibe"
+Issues = "https://github.com/NillionNetwork/nilai-vibe"
+Documentation = "https://github.com/NillionNetwork/nilai-vibe#readme"
 
 
 [build-system]

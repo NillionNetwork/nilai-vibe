@@ -1,56 +1,43 @@
-# Mistral Vibe
+# nilai-vibe
 
-[![PyPI Version](https://img.shields.io/pypi/v/mistral-vibe)](https://pypi.org/project/mistral-vibe)
 [![Python Version](https://img.shields.io/badge/python-3.12%2B-blue)](https://www.python.org/downloads/release/python-3120/)
-[![CI Status](https://github.com/mistralai/mistral-vibe/actions/workflows/ci.yml/badge.svg)](https://github.com/mistralai/mistral-vibe/actions/workflows/ci.yml)
-[![License](https://img.shields.io/github/license/mistralai/mistral-vibe)](https://github.com/mistralai/mistral-vibe/blob/main/LICENSE)
 
-```
-██████████████████░░
-██████████████████░░
-████  ██████  ████░░
-████    ██    ████░░
-████          ████░░
-████  ██  ██  ████░░
-██      ██      ██░░
-██████████████████░░
-██████████████████░░
-```
 
-**Mistral's open-source CLI coding assistant.**
+**nilAI’s open-source CLI coding assistant.**
 
-Mistral Vibe is a command-line coding assistant powered by Mistral's models. It provides a conversational interface to your codebase, allowing you to use natural language to explore, modify, and interact with your projects through a powerful set of tools.
+nilai-vibe is a command-line coding assistant powered by nilAI models. It provides a conversational interface to your codebase, allowing you to use natural language to explore, modify, and interact with your projects through a powerful set of tools.
 
 > [!WARNING]
-> Mistral Vibe works on Windows, but we officially support and target UNIX environments.
+> nilai-vibe works on Windows, but we officially support and target UNIX environments.
 
 ### One-line install (recommended)
 
 **Linux and macOS**
 
 ```bash
-curl -LsSf https://mistral.ai/vibe/install.sh | bash
+curl -LsSf https://nilai.ai/vibe/install.sh | bash
 ```
 
 **Windows**
 
 First, install uv
+
 ```bash
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-Then, use uv command below.
+Then, use the uv command below.
 
 ### Using uv
 
 ```bash
-uv tool install mistral-vibe
+uv tool install nilai-vibe
 ```
 
 ### Using pip
 
 ```bash
-pip install mistral-vibe
+pip install nilai-vibe
 ```
 
 ## Features
@@ -61,11 +48,11 @@ pip install mistral-vibe
   - Execute shell commands in a stateful terminal (`bash`).
   - Recursively search code with `grep` (with `ripgrep` support).
   - Manage a `todo` list to track the agent's work.
-- **Project-Aware Context**: Vibe automatically scans your project's file structure and Git status to provide relevant context to the agent, improving its understanding of your codebase.
+- **Project-Aware Context**: nilai-vibe automatically scans your project's file structure and Git status to provide relevant context to the agent, improving its understanding of your codebase.
 - **Advanced CLI Experience**: Built with modern libraries for a smooth and efficient workflow.
   - Autocompletion for slash commands (`/`) and file paths (`@`).
   - Persistent command history.
-  - Beautiful Themes.
+  - Beautiful themes.
 - **Highly Configurable**: Customize models, providers, tool permissions, and UI preferences through a simple `config.toml` file.
 - **Safety First**: Features tool execution approval.
 
@@ -77,21 +64,21 @@ pip install mistral-vibe
    cd /path/to/your/project
    ```
 
-2. Run Vibe:
+2. Run nilai-vibe:
 
    ```bash
-   vibe
+   uv run vibe
    ```
 
-3. If this is your first time running Vibe, it will:
+3. If this is your first time running nilai-vibe, it will:
 
-   - Create a default configuration file at `~/.vibe/config.toml`
-   - Prompt you to enter your API key if it's not already configured
-   - Save your API key to `~/.vibe/.env` for future use
+   - Create a default configuration file at `~/.vibe/config.toml`.
+   - Prompt you to enter your API key if it's not already configured.
+   - Save your API key to `~/.vibe/.env` for future use.
 
-4. Start interacting with the agent!
+4. Start interacting with the agent.
 
-   ```
+   ```text
    > Can you find all instances of the word "TODO" in the project?
 
    🤖 The user wants to find all instances of "TODO". The `grep` tool is perfect for this. I will use it to search the current directory.
@@ -107,29 +94,29 @@ pip install mistral-vibe
 
 ### Interactive Mode
 
-Simply run `vibe` to enter the interactive chat loop.
+Run `vibe` to enter the interactive chat loop.
 
 - **Multi-line Input**: Press `Ctrl+J` or `Shift+Enter` for select terminals to insert a newline.
-- **File Paths**: Reference files in your prompt using the `@` symbol for smart autocompletion (e.g., `> Read the file @src/agent.py`).
-- **Shell Commands**: Prefix any command with `!` to execute it directly in your shell, bypassing the agent (e.g., `> !ls -l`).
+- **File Paths**: Reference files in your prompt using the `@` symbol for smart autocompletion (for example, `> Read the file @src/agent.py`).
+- **Shell Commands**: Prefix any command with `!` to execute it directly in your shell, bypassing the agent (for example, `> !ls -l`).
 
-You can start Vibe with a prompt with the following command:
+You can start nilai-vibe with an initial prompt using:
 
 ```bash
 vibe "Refactor the main function in cli/main.py to be more modular."
 ```
 
-**Note**: The `--auto-approve` flag automatically approves all tool executions without prompting. In interactive mode, you can also toggle auto-approve on/off using `Shift+Tab`.
+The `--auto-approve` flag automatically approves all tool executions without prompting. In interactive mode, you can also toggle auto-approve on or off using `Shift+Tab`.
 
 ### Programmatic Mode
 
-You can run Vibe non-interactively by piping input or using the `--prompt` flag. This is useful for scripting.
+You can run nilai-vibe non-interactively by piping input or using the `--prompt` flag, which is useful for scripting:
 
 ```bash
 vibe --prompt "Refactor the main function in cli/main.py to be more modular."
 ```
 
-by default it will use `auto-approve` mode.
+By default, programmatic mode uses `auto-approve`.
 
 ### Slash Commands
 
@@ -137,29 +124,31 @@ Use slash commands for meta-actions and configuration changes during a session.
 
 ## Configuration
 
-Vibe is configured via a `config.toml` file. It looks for this file first in `./.vibe/config.toml` and then falls back to `~/.vibe/config.toml`.
+nilai-vibe is configured via a `config.toml` file. It looks for this file first in `./.vibe/config.toml` and then falls back to `~/.vibe/config.toml`.
 
 ### API Key Configuration
 
-Vibe supports multiple ways to configure your API keys:
+nilai-vibe supports multiple ways to configure your API keys:
 
-1. **Interactive Setup (Recommended for first-time users)**: When you run Vibe for the first time or if your API key is missing, Vibe will prompt you to enter it. The key will be securely saved to `~/.vibe/.env` for future sessions.
+1. **Interactive Setup (recommended for first-time users)**: When you run nilai-vibe for the first time or if your API key is missing, it prompts you to enter it. The key is securely saved to `~/.vibe/.env` for future sessions.
 
-2. **Environment Variables**: Set your API key as an environment variable:
+2. **Environment Variables**: Set your nilAI API key as an environment variable:
 
    ```bash
-   export MISTRAL_API_KEY="your_mistral_api_key"
+   export NILAI_API_KEY="your_nilai_api_key"
+   export NILAI_API_BASE="your_nilai_api_base_url"
    ```
 
 3. **`.env` File**: Create a `.env` file in `~/.vibe/` and add your API keys:
 
    ```bash
-   MISTRAL_API_KEY=your_mistral_api_key
+   NILAI_API_KEY=your_nilai_api_key
+   NILAI_API_BASE=your_nilai_api_base_url
    ```
 
-   Vibe automatically loads API keys from `~/.vibe/.env` on startup. Environment variables take precedence over the `.env` file if both are set.
+nilai-vibe automatically loads API keys from `~/.vibe/.env` on startup. Environment variables take precedence over the `.env` file if both are set.
 
-**Note**: The `.env` file is specifically for API keys and other provider credentials. General Vibe configuration should be done in `config.toml`.
+The `.env` file is specifically for API keys and other provider credentials. General nilai-vibe configuration is done in `config.toml`.
 
 ### Custom System Prompts
 
@@ -168,35 +157,31 @@ You can create custom system prompts to replace the default one (`prompts/cli.md
 To use a custom system prompt, set the `system_prompt_id` in your configuration to match the filename (without the `.md` extension):
 
 ```toml
-# Use a custom system prompt
 system_prompt_id = "my_custom_prompt"
 ```
 
-This will load the prompt from `~/.vibe/prompts/my_custom_prompt.md`.
+This loads the prompt from `~/.vibe/prompts/my_custom_prompt.md`.
 
 ### Custom Agent Configurations
 
-You can create custom agent configurations for specific use cases (e.g., red-teaming, specialized tasks) by adding agent-specific TOML files in the `~/.vibe/agents/` directory.
+You can create custom agent configurations for specific use cases by adding agent-specific TOML files in the `~/.vibe/agents/` directory.
 
-To use a custom agent, run Vibe with the `--agent` flag:
+To use a custom agent, run nilai-vibe with the `--agent` flag:
 
 ```bash
 vibe --agent my_custom_agent
 ```
 
-Vibe will look for a file named `my_custom_agent.toml` in the agents directory and apply its configuration.
+nilai-vibe looks for a file named `my_custom_agent.toml` in the agents directory and applies its configuration.
 
 Example custom agent configuration (`~/.vibe/agents/redteam.toml`):
 
 ```toml
-# Custom agent configuration for red-teaming
 active_model = "devstral-2"
 system_prompt_id = "redteam"
 
-# Disable some tools for this agent
 disabled_tools = ["search_replace", "write_file"]
 
-# Override tool permissions for this agent
 [tools.bash]
 permission = "always"
 
@@ -204,14 +189,13 @@ permission = "always"
 permission = "always"
 ```
 
-Note: this implies that you have setup a redteam prompt names `~/.vibe/prompts/redteam.md`
+This configuration assumes that you have set up a redteam prompt named `~/.vibe/prompts/redteam.md`.
 
 ### MCP Server Configuration
 
-You can configure MCP (Model Context Protocol) servers to extend Vibe's capabilities. Add MCP server configurations under the `mcp_servers` section:
+You can configure MCP (Model Context Protocol) servers to extend nilai-vibe’s capabilities. Add MCP server configurations under the `mcp_servers` section:
 
 ```toml
-# Example MCP server configurations
 [[mcp_servers]]
 name = "my_http_server"
 transport = "http"
@@ -236,24 +220,23 @@ args = ["mcp-server-fetch"]
 
 Supported transports:
 
-- `http`: Standard HTTP transport
-- `streamable-http`: HTTP transport with streaming support
-- `stdio`: Standard input/output transport (for local processes)
+- `http`: Standard HTTP transport.
+- `streamable-http`: HTTP transport with streaming support.
+- `stdio`: Standard input/output transport for local processes.
 
 Key fields:
 
-- `name`: A short alias for the server (used in tool names)
-- `transport`: The transport type
-- `url`: Base URL for HTTP transports
-- `headers`: Additional HTTP headers
-- `api_key_env`: Environment variable containing the API key
-- `command`: Command to run for stdio transport
-- `args`: Additional arguments for stdio transport
+- `name`: A short alias for the server (used in tool names).
+- `transport`: The transport type.
+- `url`: Base URL for HTTP transports.
+- `headers`: Additional HTTP headers.
+- `api_key_env`: Environment variable containing the API key.
+- `command`: Command to run for stdio transport.
+- `args`: Additional arguments for stdio transport.
 
 MCP tools are named using the pattern `{server_name}_{tool_name}` and can be configured with permissions like built-in tools:
 
 ```toml
-# Configure permissions for specific MCP tools
 [tools.fetch_server_get]
 permission = "always"
 
@@ -261,69 +244,45 @@ permission = "always"
 permission = "ask"
 ```
 
-### Enable/disable tools with patterns
+### Enable or Disable Tools with Patterns
 
-You can control which tools are active using `enabled_tools` and `disabled_tools`.
-These fields support exact names, glob patterns, and regular expressions.
+You can control which tools are active using `enabled_tools` and `disabled_tools`. These fields support exact names, glob patterns, and regular expressions.
 
 Examples:
 
 ```toml
-# Only enable tools that start with "serena_" (glob)
 enabled_tools = ["serena_*"]
-
-# Regex (prefix with re:) — matches full tool name (case-insensitive)
 enabled_tools = ["re:^serena_.*$"]
-
-# Heuristic regex support (patterns like `serena.*` are treated as regex)
 enabled_tools = ["serena.*"]
-
-# Disable a group with glob; everything else stays enabled
 disabled_tools = ["mcp_*", "grep"]
 ```
 
 Notes:
 
-- MCP tool names use underscores, e.g., `serena_list` not `serena.list`.
-- Regex patterns are matched against the full tool name using fullmatch.
+- MCP tool names use underscores, for example, `serena_list` not `serena.list`.
+- Regex patterns are matched against the full tool name using `fullmatch`.
 
 ### Custom Vibe Home Directory
 
-By default, Vibe stores its configuration in `~/.vibe/`. You can override this by setting the `VIBE_HOME` environment variable:
+By default, nilai-vibe stores its configuration in `~/.vibe/`. You can override this by setting the `VIBE_HOME` environment variable:
 
 ```bash
 export VIBE_HOME="/path/to/custom/vibe/home"
 ```
 
-This affects where Vibe looks for:
+This affects where nilai-vibe looks for:
 
-- `config.toml` - Main configuration
-- `.env` - API keys
-- `agents/` - Custom agent configurations
-- `prompts/` - Custom system prompts
-- `tools/` - Custom tools
-- `logs/` - Session logsRetryTo run code, enable code execution and file creation in Settings > Capabilities.
-
-## Editors/IDEs
-
-Mistral Vibe can be used in text editors and IDEs that support [Agent Client Protocol](https://agentclientprotocol.com/overview/clients). See the [ACP Setup documentation](docs/acp-setup.md) for setup instructions for various editors and IDEs.
+- `config.toml` for main configuration.
+- `.env` for API keys.
+- `agents/` for custom agent configurations.
+- `prompts/` for custom system prompts.
+- `tools/` for custom tools.
+- `logs/` for session logs.
 
 ## Resources
 
-- [CHANGELOG](CHANGELOG.md) - See what's new in each version
-- [CONTRIBUTING](CONTRIBUTING.md) - Guidelines for feedback and bug reports
+- [CHANGELOG](CHANGELOG.md) - See what is new in each version.
 
 ## License
 
-Copyright 2025 Mistral AI
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the [LICENSE](LICENSE) file for the full license text.
+This project is licensed under the Apache License, Version 2.0. See the [LICENSE](LICENSE) file for the full license text.
