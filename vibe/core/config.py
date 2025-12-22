@@ -127,7 +127,7 @@ class Backend(StrEnum):
 
 class ProviderConfig(BaseModel):
     name: str
-    api_base: str
+    api_base: str = ""
     api_key_env_var: str = ""
     api_style: str = "openai"
     backend: Backend = Backend.GENERIC
@@ -244,6 +244,13 @@ DEFAULT_PROVIDERS = [
         api_base="http://127.0.0.1:8080/v1",
         api_key_env_var="",  # NOTE: if you wish to use --api-key in llama-server, change this value
     ),
+    ProviderConfig(
+        name="nilai",
+        api_base="NILAI_API_BASE",
+        api_key_env_var="NILAI_API_KEY",
+        api_style="openai",
+        backend=Backend.GENERIC,
+    ),
 ]
 
 DEFAULT_MODELS = [
@@ -268,11 +275,18 @@ DEFAULT_MODELS = [
         input_price=0.0,
         output_price=0.0,
     ),
+    ModelConfig(
+        name="Qwen/Qwen3-Coder-30B-A3B-Instruct",
+        provider="nilai",
+        alias="nilai-coder",
+        input_price=0,
+        output_price=0,
+    ),
 ]
 
 
 class VibeConfig(BaseSettings):
-    active_model: str = "devstral-2"
+    active_model: str = "nilai-coder"
     vim_keybindings: bool = False
     disable_welcome_banner_animation: bool = False
     displayed_workdir: str = ""

@@ -10,10 +10,10 @@ This script increments the version in pyproject.toml based on the specified bump
 from __future__ import annotations
 
 import argparse
-from pathlib import Path
 import re
 import subprocess
 import sys
+from pathlib import Path
 from typing import Literal, get_args
 
 BumpType = Literal["major", "minor", "micro", "patch"]
@@ -111,18 +111,6 @@ Examples:
         update_hard_values_files(
             "pyproject.toml",
             [(f'version = "{current_version}"', f'version = "{new_version}"')],
-        )
-        # Update extension.toml
-        update_hard_values_files(
-            "distribution/zed/extension.toml",
-            [
-                (f'version = "{current_version}"', f'version = "{new_version}"'),
-                (
-                    f"releases/download/v{current_version}",
-                    f"releases/download/v{new_version}",
-                ),
-                (f"-{current_version}.zip", f"-{new_version}.zip"),
-            ],
         )
         # Update .vscode/launch.json
         update_hard_values_files(

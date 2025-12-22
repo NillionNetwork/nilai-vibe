@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import asyncio
-from collections.abc import AsyncGenerator
 import json
 import os
+from collections.abc import AsyncGenerator
 from pathlib import Path
 from typing import Any
 
+import pytest
+import tomli_w
 from acp import (
     InitializeRequest,
     NewSessionRequest,
@@ -27,8 +29,6 @@ from acp.schema import (
     TextContentBlock,
 )
 from pydantic import BaseModel
-import pytest
-import tomli_w
 
 from tests import TESTS_ROOT
 from tests.conftest import get_base_config
@@ -73,7 +73,7 @@ def _create_vibe_home_dir(tmp_path: Path, *sections: dict[str, Any]) -> Path:
     base_config_dict["active_model"] = "devstral-latest"
     if base_config_dict.get("models"):
         for model in base_config_dict["models"]:
-            if model.get("name") == "mistral-vibe-cli-latest":
+            if model.get("name") == "nilai-vibe-cli-latest":
                 model["alias"] = "devstral-latest"
 
     if sections:
@@ -464,26 +464,28 @@ class TestSessionUpdates:
 
     @pytest.mark.asyncio
     async def test_tool_call_update_structure(self, vibe_home_dir: Path) -> None:
-        mock_env = get_mocking_env([
-            mock_llm_chunk(content="Hey"),
-            mock_llm_chunk(
-                tool_calls=[
-                    ToolCall(
-                        function=FunctionCall(
-                            name="grep", arguments='{"pattern": "auth"}'
-                        ),
-                        type="function",
-                        index=0,
-                    )
-                ],
-                name="bash",
-                finish_reason="tool_calls",
-            ),
-            mock_llm_chunk(
-                content="The files containing the pattern 'auth' are ...",
-                finish_reason="stop",
-            ),
-        ])
+        mock_env = get_mocking_env(
+            [
+                mock_llm_chunk(content="Hey"),
+                mock_llm_chunk(
+                    tool_calls=[
+                        ToolCall(
+                            function=FunctionCall(
+                                name="grep", arguments='{"pattern": "auth"}'
+                            ),
+                            type="function",
+                            index=0,
+                        )
+                    ],
+                    name="bash",
+                    finish_reason="tool_calls",
+                ),
+                mock_llm_chunk(
+                    content="The files containing the pattern 'auth' are ...",
+                    finish_reason="stop",
+                ),
+            ]
+        )
         async for process in get_acp_agent_process(
             mock_env=mock_env, vibe_home=vibe_home_dir
         ):

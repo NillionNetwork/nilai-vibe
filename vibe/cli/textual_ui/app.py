@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import asyncio
-from enum import StrEnum, auto
 import subprocess
 import time
+from enum import StrEnum, auto
 from typing import Any, ClassVar, assert_never
 
 from textual.app import App, ComposeResult
@@ -1244,7 +1244,7 @@ class VibeApp(App):
         if self._update_notification_shown:
             return
 
-        message = f'{self._current_version} => {update.latest_version}\nRun "uv tool upgrade mistral-vibe" to update'
+        message = f'{self._current_version} => {update.latest_version}\nRun "uv tool upgrade nilai-vibe" to update'
 
         self.notify(
             message, title="Update available", severity="information", timeout=10
@@ -1280,7 +1280,7 @@ def run_textual_ui(
     loaded_messages: list[LLMMessage] | None = None,
 ) -> None:
     """Run the Textual UI."""
-    update_notifier = PyPIVersionUpdateGateway(project_name="mistral-vibe")
+    update_notifier = PyPIVersionUpdateGateway(project_name="nilai-vibe")
     update_cache_repository = FileSystemUpdateCacheRepository()
     app = VibeApp(
         config=config,

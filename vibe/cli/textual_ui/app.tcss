@@ -1,3 +1,6 @@
+$warning: #2b2cff;
+$text-warning: #4243ff;
+
 Screen {
     background: $background;
 }

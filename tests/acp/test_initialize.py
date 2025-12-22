@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import pytest
 from acp import PROTOCOL_VERSION, AgentSideConnection, InitializeRequest
 from acp.schema import (
     AgentCapabilities,
@@ -7,7 +8,6 @@ from acp.schema import (
     Implementation,
     PromptCapabilities,
 )
-import pytest
 
 from tests.stubs.fake_connection import FakeAgentSideConnection
 from vibe.acp.acp_agent import VibeAcpAgent
@@ -41,7 +41,7 @@ class TestACPInitialize:
             ),
         )
         assert response.agentInfo == Implementation(
-            name="@mistralai/mistral-vibe", title="Mistral Vibe", version="1.2.1"
+            name="@nilai/nilai-vibe", title="nilAI Vibe", version="1.2.1"
         )
 
         assert response.authMethods == []
@@ -63,7 +63,7 @@ class TestACPInitialize:
             ),
         )
         assert response.agentInfo == Implementation(
-            name="@mistralai/mistral-vibe", title="Mistral Vibe", version="1.2.1"
+            name="@nilai/nilai-vibe", title="nilAI Vibe", version="1.2.1"
         )
 
         assert response.authMethods is not None
@@ -71,10 +71,10 @@ class TestACPInitialize:
         auth_method = response.authMethods[0]
         assert auth_method.id == "vibe-setup"
         assert auth_method.name == "Register your API Key"
-        assert auth_method.description == "Register your API Key inside Mistral Vibe"
+        assert auth_method.description == "Register your API Key inside nilAI Vibe"
         assert auth_method.field_meta is not None
         assert "terminal-auth" in auth_method.field_meta
         terminal_auth_meta = auth_method.field_meta["terminal-auth"]
         assert "command" in terminal_auth_meta
         assert "args" in terminal_auth_meta
-        assert terminal_auth_meta["label"] == "Mistral Vibe Setup"
+        assert terminal_auth_meta["label"] == "nilAI Vibe Setup"

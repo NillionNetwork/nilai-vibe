@@ -79,25 +79,25 @@ function install_uv() {
 }
 
 function install_vibe() {
-    info "Installing mistral-vibe from GitHub repository using uv..."
-    uv tool install mistral-vibe
+    info "Installing nilai-vibe from GitHub repository using uv..."
+    uv tool install nilai-vibe
 
-    success "Mistral Vibe installed successfully! (commands: vibe, vibe-acp)"
+    success "nilAI Vibe installed successfully! (command: vibe)"
 }
 
 function main() {
     echo
-    echo "██████████████████░░"
-    echo "██████████████████░░"
-    echo "████  ██████  ████░░"
-    echo "████    ██    ████░░"
-    echo "████          ████░░"
-    echo "████  ██  ██  ████░░"
-    echo "██      ██      ██░░"
-    echo "██████████████████░░"
-    echo "██████████████████░░"
+    echo "░░██████████████████░░"
+    echo "░░██████████████████░░"
+    echo "░░████        ████░░"
+    echo "░░████        ████░░"
+    echo "░░████        ████░░"
+    echo "░░████        ████░░"
+    echo "░░████        ████░░"
+    echo "░░████        ████░░"
+    echo "░░████        ████░░"
     echo
-    echo "Starting Mistral Vibe installation..."
+    echo "Starting nilAI Vibe installation..."
     echo
 
     check_platform
@@ -116,8 +116,6 @@ function main() {
         echo "You can now run vibe with:"
         echo "  vibe"
         echo
-        echo "Or for ACP mode:"
-        echo "  vibe-acp"
     else
         error "Installation completed but 'vibe' command not found"
         error "Please check your installation and PATH settings"

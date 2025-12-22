@@ -1,7 +1,7 @@
 ---
-name: Mistral Vibe
-description: "Download, install, and run Mistral Vibe"
-author: Mistral AI
+name: NilAI Vibe
+description: "Download, install, and run NilAI Vibe"
+author: Nillion
 
 inputs:
   prompt:
@@ -9,8 +9,8 @@ inputs:
     required: true
     default: |
       You are a helpful assistant
-  MISTRAL_API_KEY:
-    description: API Key for AI Studio
+  NILAI_API_KEY:
+    description: API Key for NilAI
     required: true
   install_python:
     description: |
@@ -40,18 +40,18 @@ runs:
     - name: Install uv
       uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5
 
-    - name: Install Mistral Vibe
+    - name: Install NilAI Vibe
       shell: bash
       working-directory: ${{ github.action_path }}
       run: |
         uv sync --locked --all-extras --dev
 
-    - name: Run Mistral Vibe
-      id: run-mistral-vibe
+    - name: Run NilAI Vibe
+      id: run-nilai-vibe
       shell: bash
       working-directory: ${{ github.action_path }}
       env:
-        MISTRAL_API_KEY: "${{ inputs.MISTRAL_API_KEY }}"
+        NILAI_API_KEY: "${{ inputs.NILAI_API_KEY }}"
         PROMPT_INPUT: "${{ inputs.prompt }}"
       run: |
         cd "${{ github.workspace }}"

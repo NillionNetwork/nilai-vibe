@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from datetime import datetime
 import random
+from datetime import datetime
 from time import time
 from typing import ClassVar
 
@@ -25,7 +25,7 @@ class LoadingWidget(Static):
         "Reading Proust",
         "Oui oui baguette",
         "Counting Rs in strawberry",
-        "Seeding Mistral weights",
+        "Seeding nilAI weights",
         "Vibing",
         "Sending good vibes",
         "Petting le chat",

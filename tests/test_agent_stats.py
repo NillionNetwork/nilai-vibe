@@ -43,7 +43,7 @@ def make_config(
 ) -> VibeConfig:
     models = [
         ModelConfig(
-            name="mistral-vibe-cli-latest",
+            name="nilai-vibe-cli-latest",
             provider="mistral",
             alias="devstral-latest",
             input_price=input_price,
@@ -159,9 +159,9 @@ class TestAgentStatsHelpers:
 class TestReloadPreservesStats:
     @pytest.mark.asyncio
     async def test_reload_preserves_session_tokens(self) -> None:
-        backend = FakeBackend([
-            mock_llm_chunk(content="First response", finish_reason="stop")
-        ])
+        backend = FakeBackend(
+            [mock_llm_chunk(content="First response", finish_reason="stop")]
+        )
         agent = Agent(make_config(), backend=backend)
 
         async for _ in agent.act("Hello"):
@@ -179,20 +179,22 @@ class TestReloadPreservesStats:
 
     @pytest.mark.asyncio
     async def test_reload_preserves_tool_call_stats(self) -> None:
-        backend = FakeBackend([
-            mock_llm_chunk(
-                content="Calling tool",
-                tool_calls=[
-                    ToolCall(
-                        id="tc1",
-                        function=FunctionCall(
-                            name="todo", arguments='{"action": "read"}'
-                        ),
-                    )
-                ],
-            ),
-            mock_llm_chunk(content="Done", finish_reason="stop"),
-        ])
+        backend = FakeBackend(
+            [
+                mock_llm_chunk(
+                    content="Calling tool",
+                    tool_calls=[
+                        ToolCall(
+                            id="tc1",
+                            function=FunctionCall(
+                                name="todo", arguments='{"action": "read"}'
+                            ),
+                        )
+                    ],
+                ),
+                mock_llm_chunk(content="Done", finish_reason="stop"),
+            ]
+        )
         config = make_config(enabled_tools=["todo"])
         agent = Agent(config, mode=AgentMode.AUTO_APPROVE, backend=backend)
 
@@ -209,10 +211,12 @@ class TestReloadPreservesStats:
 
     @pytest.mark.asyncio
     async def test_reload_preserves_steps(self) -> None:
-        backend = FakeBackend([
-            mock_llm_chunk(content="R1", finish_reason="stop"),
-            mock_llm_chunk(content="R2", finish_reason="stop"),
-        ])
+        backend = FakeBackend(
+            [
+                mock_llm_chunk(content="R1", finish_reason="stop"),
+                mock_llm_chunk(content="R2", finish_reason="stop"),
+            ]
+        )
         agent = Agent(make_config(), backend=backend)
 
         async for _ in agent.act("First"):
@@ -231,9 +235,9 @@ class TestReloadPreservesStats:
     async def test_reload_preserves_context_tokens_when_messages_preserved(
         self,
     ) -> None:
-        backend = FakeBackend([
-            mock_llm_chunk(content="Response", finish_reason="stop")
-        ])
+        backend = FakeBackend(
+            [mock_llm_chunk(content="Response", finish_reason="stop")]
+        )
         agent = Agent(make_config(), backend=backend)
         [_ async for _ in agent.act("Hello")]
         assert agent.stats.context_tokens > 0
@@ -259,9 +263,9 @@ class TestReloadPreservesStats:
 
     @pytest.mark.asyncio
     async def test_reload_preserves_context_tokens_when_messages_exist(self) -> None:
-        backend = FakeBackend([
-            mock_llm_chunk(content="Response", finish_reason="stop")
-        ])
+        backend = FakeBackend(
+            [mock_llm_chunk(content="Response", finish_reason="stop")]
+        )
         config1 = make_config(system_prompt_id="tests")
         config2 = make_config(system_prompt_id="cli")
         agent = Agent(config1, backend=backend)
@@ -279,9 +283,9 @@ class TestReloadPreservesStats:
     async def test_reload_updates_pricing_from_new_model(self, monkeypatch) -> None:
         monkeypatch.setenv("LECHAT_API_KEY", "mock-key")
 
-        backend = FakeBackend([
-            mock_llm_chunk(content="Response", finish_reason="stop")
-        ])
+        backend = FakeBackend(
+            [mock_llm_chunk(content="Response", finish_reason="stop")]
+        )
         config_mistral = make_config(active_model="devstral-latest")
         agent = Agent(config_mistral, backend=backend)
 
@@ -301,10 +305,12 @@ class TestReloadPreservesStats:
     async def test_reload_accumulates_tokens_across_configs(self, monkeypatch) -> None:
         monkeypatch.setenv("LECHAT_API_KEY", "mock-key")
 
-        backend = FakeBackend([
-            mock_llm_chunk(content="First", finish_reason="stop"),
-            mock_llm_chunk(content="After reload", finish_reason="stop"),
-        ])
+        backend = FakeBackend(
+            [
+                mock_llm_chunk(content="First", finish_reason="stop"),
+                mock_llm_chunk(content="After reload", finish_reason="stop"),
+            ]
+        )
         config1 = make_config(active_model="devstral-latest")
         agent = Agent(config1, backend=backend)
 
@@ -330,9 +336,9 @@ class TestReloadPreservesStats:
 class TestReloadPreservesMessages:
     @pytest.mark.asyncio
     async def test_reload_preserves_conversation_messages(self) -> None:
-        backend = FakeBackend([
-            mock_llm_chunk(content="Response", finish_reason="stop")
-        ])
+        backend = FakeBackend(
+            [mock_llm_chunk(content="Response", finish_reason="stop")]
+        )
         agent = Agent(make_config(), backend=backend)
 
         async for _ in agent.act("Hello"):
@@ -353,9 +359,9 @@ class TestReloadPreservesMessages:
 
     @pytest.mark.asyncio
     async def test_reload_updates_system_prompt_preserves_rest(self) -> None:
-        backend = FakeBackend([
-            mock_llm_chunk(content="Response", finish_reason="stop")
-        ])
+        backend = FakeBackend(
+            [mock_llm_chunk(content="Response", finish_reason="stop")]
+        )
         config1 = make_config(system_prompt_id="tests")
         agent = Agent(config1, backend=backend)
 
@@ -388,9 +394,9 @@ class TestReloadPreservesMessages:
         self, observer_capture
     ) -> None:
         observed, observer = observer_capture
-        backend = FakeBackend([
-            mock_llm_chunk(content="Response", finish_reason="stop")
-        ])
+        backend = FakeBackend(
+            [mock_llm_chunk(content="Response", finish_reason="stop")]
+        )
         agent = Agent(make_config(), message_observer=observer, backend=backend)
 
         async for _ in agent.act("Hello"):
@@ -409,10 +415,12 @@ class TestReloadPreservesMessages:
 class TestCompactStatsHandling:
     @pytest.mark.asyncio
     async def test_compact_preserves_cumulative_stats(self) -> None:
-        backend = FakeBackend([
-            mock_llm_chunk(content="First response", finish_reason="stop"),
-            mock_llm_chunk(content="<summary>", finish_reason="stop"),
-        ])
+        backend = FakeBackend(
+            [
+                mock_llm_chunk(content="First response", finish_reason="stop"),
+                mock_llm_chunk(content="<summary>", finish_reason="stop"),
+            ]
+        )
         agent = Agent(make_config(), backend=backend)
 
         async for _ in agent.act("Build something"):
@@ -431,10 +439,12 @@ class TestCompactStatsHandling:
 
     @pytest.mark.asyncio
     async def test_compact_updates_context_tokens(self) -> None:
-        backend = FakeBackend([
-            mock_llm_chunk(content="Long response " * 100, finish_reason="stop"),
-            mock_llm_chunk(content="<summary>", finish_reason="stop"),
-        ])
+        backend = FakeBackend(
+            [
+                mock_llm_chunk(content="Long response " * 100, finish_reason="stop"),
+                mock_llm_chunk(content="<summary>", finish_reason="stop"),
+            ]
+        )
         agent = Agent(make_config(), backend=backend)
 
         async for _ in agent.act("Do something complex"):
@@ -448,21 +458,23 @@ class TestCompactStatsHandling:
 
     @pytest.mark.asyncio
     async def test_compact_preserves_tool_call_stats(self) -> None:
-        backend = FakeBackend([
-            mock_llm_chunk(
-                content="Using tool",
-                tool_calls=[
-                    ToolCall(
-                        id="tc1",
-                        function=FunctionCall(
-                            name="todo", arguments='{"action": "read"}'
-                        ),
-                    )
-                ],
-            ),
-            mock_llm_chunk(content="Done", finish_reason="stop"),
-            mock_llm_chunk(content="<summary>", finish_reason="stop"),
-        ])
+        backend = FakeBackend(
+            [
+                mock_llm_chunk(
+                    content="Using tool",
+                    tool_calls=[
+                        ToolCall(
+                            id="tc1",
+                            function=FunctionCall(
+                                name="todo", arguments='{"action": "read"}'
+                            ),
+                        )
+                    ],
+                ),
+                mock_llm_chunk(content="Done", finish_reason="stop"),
+                mock_llm_chunk(content="<summary>", finish_reason="stop"),
+            ]
+        )
         config = make_config(enabled_tools=["todo"])
         agent = Agent(config, mode=AgentMode.AUTO_APPROVE, backend=backend)
 
@@ -477,10 +489,12 @@ class TestCompactStatsHandling:
 
     @pytest.mark.asyncio
     async def test_compact_resets_session_id(self) -> None:
-        backend = FakeBackend([
-            mock_llm_chunk(content="Long response " * 100, finish_reason="stop"),
-            mock_llm_chunk(content="<summary>", finish_reason="stop"),
-        ])
+        backend = FakeBackend(
+            [
+                mock_llm_chunk(content="Long response " * 100, finish_reason="stop"),
+                mock_llm_chunk(content="<summary>", finish_reason="stop"),
+            ]
+        )
         agent = Agent(make_config(disable_logging=False), backend=backend)
 
         original_session_id = agent.session_id
@@ -505,10 +519,12 @@ class TestAutoCompactIntegration:
         def observer(msg: LLMMessage) -> None:
             observed.append((msg.role, msg.content))
 
-        backend = FakeBackend([
-            mock_llm_chunk(content="<summary>", finish_reason="stop"),
-            mock_llm_chunk(content="<final>", finish_reason="stop"),
-        ])
+        backend = FakeBackend(
+            [
+                mock_llm_chunk(content="<summary>", finish_reason="stop"),
+                mock_llm_chunk(content="<final>", finish_reason="stop"),
+            ]
+        )
         cfg = VibeConfig(
             session_logging=SessionLoggingConfig(enabled=False),
             auto_compact_threshold=1,
@@ -544,9 +560,9 @@ class TestAutoCompactIntegration:
 class TestClearHistoryFullReset:
     @pytest.mark.asyncio
     async def test_clear_history_fully_resets_stats(self) -> None:
-        backend = FakeBackend([
-            mock_llm_chunk(content="Response", finish_reason="stop")
-        ])
+        backend = FakeBackend(
+            [mock_llm_chunk(content="Response", finish_reason="stop")]
+        )
         agent = Agent(make_config(), backend=backend)
 
         async for _ in agent.act("Hello"):
@@ -563,9 +579,9 @@ class TestClearHistoryFullReset:
 
     @pytest.mark.asyncio
     async def test_clear_history_preserves_pricing(self) -> None:
-        backend = FakeBackend([
-            mock_llm_chunk(content="Response", finish_reason="stop")
-        ])
+        backend = FakeBackend(
+            [mock_llm_chunk(content="Response", finish_reason="stop")]
+        )
         config = make_config(input_price=0.4, output_price=2.0)
         agent = Agent(config, backend=backend)
 
@@ -579,9 +595,9 @@ class TestClearHistoryFullReset:
 
     @pytest.mark.asyncio
     async def test_clear_history_removes_messages(self) -> None:
-        backend = FakeBackend([
-            mock_llm_chunk(content="Response", finish_reason="stop")
-        ])
+        backend = FakeBackend(
+            [mock_llm_chunk(content="Response", finish_reason="stop")]
+        )
         agent = Agent(make_config(), backend=backend)
 
         async for _ in agent.act("Hello"):
@@ -596,9 +612,9 @@ class TestClearHistoryFullReset:
 
     @pytest.mark.asyncio
     async def test_clear_history_resets_session_id(self) -> None:
-        backend = FakeBackend([
-            mock_llm_chunk(content="Response", finish_reason="stop")
-        ])
+        backend = FakeBackend(
+            [mock_llm_chunk(content="Response", finish_reason="stop")]
+        )
         agent = Agent(make_config(disable_logging=False), backend=backend)
 
         original_session_id = agent.session_id
@@ -622,9 +638,9 @@ class TestStatsEdgeCases:
     ) -> None:
         monkeypatch.setenv("LECHAT_API_KEY", "mock-key")
 
-        backend = FakeBackend([
-            mock_llm_chunk(content="Response", finish_reason="stop")
-        ])
+        backend = FakeBackend(
+            [mock_llm_chunk(content="Response", finish_reason="stop")]
+        )
         config1 = make_config(active_model="devstral-latest")
         agent = Agent(config1, backend=backend)
 
@@ -642,11 +658,13 @@ class TestStatsEdgeCases:
 
     @pytest.mark.asyncio
     async def test_multiple_reloads_accumulate_correctly(self) -> None:
-        backend = FakeBackend([
-            mock_llm_chunk(content="R1", finish_reason="stop"),
-            mock_llm_chunk(content="R2", finish_reason="stop"),
-            mock_llm_chunk(content="R3", finish_reason="stop"),
-        ])
+        backend = FakeBackend(
+            [
+                mock_llm_chunk(content="R1", finish_reason="stop"),
+                mock_llm_chunk(content="R2", finish_reason="stop"),
+                mock_llm_chunk(content="R3", finish_reason="stop"),
+            ]
+        )
         agent = Agent(make_config(), backend=backend)
 
         async for _ in agent.act("First"):
@@ -667,11 +685,13 @@ class TestStatsEdgeCases:
 
     @pytest.mark.asyncio
     async def test_compact_then_reload_preserves_both(self) -> None:
-        backend = FakeBackend([
-            mock_llm_chunk(content="Initial response", finish_reason="stop"),
-            mock_llm_chunk(content="<summary>", finish_reason="stop"),
-            mock_llm_chunk(content="After reload", finish_reason="stop"),
-        ])
+        backend = FakeBackend(
+            [
+                mock_llm_chunk(content="Initial response", finish_reason="stop"),
+                mock_llm_chunk(content="<summary>", finish_reason="stop"),
+                mock_llm_chunk(content="After reload", finish_reason="stop"),
+            ]
+        )
         agent = Agent(make_config(), backend=backend)
 
         async for _ in agent.act("Build something"):
