@@ -128,23 +128,50 @@ nilai-vibe is configured via a `config.toml` file. It looks for this file first 
 
 ### API Key Configuration
 
-nilai-vibe supports multiple ways to configure your API keys:
+nilai-vibe supports multiple configuration methods for your API keys. Choose the approach that best fits your workflow:
 
-1. **Interactive Setup (recommended for first-time users)**: When you run nilai-vibe for the first time or if your API key is missing, it prompts you to enter it. The key is securely saved to `~/.vibe/.env` for future sessions.
+#### Interactive Setup (Recommended)
 
-2. **Environment Variables**: Set your nilAI API key as an environment variable:
+When you first run nilai-vibe without an API key configured, you'll be prompted to enter it interactively. The key is securely saved to `~/.vibe/.env` for future use.
 
-   ```bash
-   export NILAI_API_KEY="your_nilai_api_key"
-   export NILAI_API_BASE="your_nilai_api_base_url"
-   ```
+If you encounter URL errors during setup, manually edit the configuration:
 
-3. **`.env` File**: Create a `.env` file in `~/.vibe/` and add your API keys:
+```bash
+nano ~/.vibe/config.toml
+```
 
-   ```bash
-   NILAI_API_KEY=your_nilai_api_key
-   NILAI_API_BASE=your_nilai_api_base_url
-   ```
+Locate and update the provider section:
+
+```bash
+[[providers]]
+name = "nillion"
+api_base = "your_nilai_api_base_url"  # Replace with correct URL
+api_key_env_var = "NILAI_API_KEY"
+api_style = "openai"
+backend = "generic"
+```
+
+#### Environment Variables
+
+Export your API credentials directly in your shell:
+
+```bash
+export NILAI_API_KEY="your_nilai_api_key"
+export NILAI_API_BASE="your_nilai_api_base_url"
+```
+
+For persistence across sessions, add these exports to your `~/.bashrc`, `~/.zshrc`, or equivalent shell configuration file.
+
+#### Configuration File
+
+Create or edit `~/.vibe/.env` with your API credentials:
+
+```bash
+NILAI_API_KEY=your_nilai_api_key
+NILAI_API_BASE=your_nilai_api_base_url
+```
+
+This method keeps your credentials separate from your shell environment and is ideal for managing multiple configurations.
 
 nilai-vibe automatically loads API keys from `~/.vibe/.env` on startup. Environment variables take precedence over the `.env` file if both are set.
 
@@ -286,3 +313,16 @@ This affects where nilai-vibe looks for:
 ## License
 
 This project is licensed under the Apache License, Version 2.0. See the [LICENSE](LICENSE) file for the full license text.
+
+nilAI-vibe is directly synchronized and based on the mistralai-vibe project.
+
+Updated/modified files on this branch:
+- root files
+- .github
+- .vscode
+- distribution
+- docs
+- repo-sync
+- scripts
+- tests
+- vibe
