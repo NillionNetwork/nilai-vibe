@@ -282,11 +282,18 @@ DEFAULT_MODELS = [
         input_price=0,
         output_price=0,
     ),
+    ModelConfig(
+        name="zai-org/GLM-4.6V-Flash",
+        provider="nilai",
+        alias="glm-vision",
+        input_price=0,
+        output_price=0,
+    ),
 ]
 
 
 class VibeConfig(BaseSettings):
-    active_model: str = "nilai-coder"
+    active_model: str = "glm-vision"
     vim_keybindings: bool = False
     disable_welcome_banner_animation: bool = False
     displayed_workdir: str = ""
